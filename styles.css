@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mai Kerja</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <section id="auth-view" class="page active">
+        <div class="auth-shell">
+          <div class="auth-card">
+            <div class="brand-block">
+              <h1>Mai Kerja</h1>
+              <p>Smart Attendance & Leave Management</p>
+            </div>
+
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="login">Login</button>
+              <button class="tab-btn" data-tab="register">Daftar</button>
+            </div>
+
+            <form id="login-form" class="auth-form active">
+              <label>
+                Email
+                <input type="email" id="login-email" placeholder="staff@mai-kerja.com" required />
+              </label>
+              <label>
+                Kata Laluan
+                <input type="password" id="login-password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" class="primary-btn">Log Masuk</button>
+              <p class="demo-note">Demo: admin@demo.com / demo123</p>
+            </form>
+
+            <form id="register-form" class="auth-form hidden">
+              <label>
+                Nama Penuh
+                <input type="text" id="register-name" placeholder="Ali bin Ahmad" required />
+              </label>
+              <label>
+                Email
+                <input type="email" id="register-email" placeholder="ali@mai-kerja.com" required />
+              </label>
+              <label>
+                Kata Laluan
+                <input type="password" id="register-password" placeholder="Minimum 6 aksara" required minlength="6" />
+              </label>
+              <label>
+                Peranan
+                <select id="register-role">
+                  <option value="staff">Staff</option>
+                  <option value="admin">Admin</option>
+                  <option value="super_admin">Super Admin</option>
+                </select>
+              </label>
+              <button type="submit" class="primary-btn">Daftar Akaun</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard-view" class="page hidden">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2>Mai Kerja</h2>
+          </div>
+          <div class="user-actions">
+            <span id="current-role-badge" class="role-badge">Staff</span>
+            <button id="logout-button" class="secondary-btn">Log Keluar</button>
+          </div>
+        </header>
+
+        <main class="main-grid">
+          <section class="stats-grid">
+            <article class="stat-card">
+              <span>Total Jam Hari Ini</span>
+              <strong id="stat-hours">0h 0m</strong>
+            </article>
+            <article class="stat-card">
+              <span>Jumlah Cuti</span>
+              <strong id="stat-leaves">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Jumlah Staf</span>
+              <strong id="stat-staff">0</strong>
+            </article>
+            <article class="stat-card">
+              <span>Status Kehadiran</span>
+              <strong id="status-pill">Belum Log Masuk</strong>
+            </article>
+          </section>
+
+          <section class="panel action-panel">
+            <h3>Kehadiran</h3>
+            <div class="attendance-actions">
+              <button id="check-in-button" class="primary-btn">Check In</button>
+              <button id="check-out-button" class="secondary-btn">Check Out</button>
+            </div>
+            <p id="location-status" class="status-line">Sistem akan menggunakan lokasi semasa anda.</p>
+          </section>
+
+          <section class="panel">
+            <h3>Permohonan Cuti</h3>
+            <form id="leave-form" class="stacked-form">
+              <div class="inline-fields">
+                <label>
+                  Tarikh Mula
+                  <input type="date" id="leave-start" required />
+                </label>
+                <label>
+                  Tarikh Tamat
+                  <input type="date" id="leave-end" required />
+                </label>
+              </div>
+              <label>
+                Sebab / Catatan
+                <textarea id="leave-reason" rows="3" placeholder="Sila nyatakan sebab permohonan cuti" required></textarea>
+              </label>
+              <button type="submit" class="primary-btn">Hantar Permohonan</button>
+            </form>
+          </section>
+
+          <section class="panel hidden" id="admin-panel">
+            <h3>Pengurusan Staff</h3>
+            <div id="staff-list" class="list-table"></div>
+          </section>
+
+          <section class="panel hidden" id="leave-review-panel">
+            <h3>Semakan Cuti</h3>
+            <div id="leave-list" class="list-table"></div>
+          </section>
+
+          <section class="panel">
+            <h3>Rekod Kehadiran</h3>
+            <div id="attendance-list" class="list-table"></div>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
